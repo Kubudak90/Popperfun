@@ -244,20 +244,19 @@ export function LaunchForm() {
         <div className="rounded-2xl border border-dashed border-border px-4 py-3 text-sm leading-relaxed text-muted">
           Factory is not configured (zero / missing{" "}
           <code className="font-semibold text-midnight dark:text-cloud">NEXT_PUBLIC_FACTORY_ADDRESS</code>
-          ). The form stays fillable. Deploy the prototype, then paste the printed factory address:
+          ). The form stays fillable. Deploy the prototype to Arc Testnet, then paste the printed
+          factory:
           <span className="mt-2 block font-mono text-[12px] text-midnight dark:text-cloud">
-            anvil
+            # faucet: https://faucet.circle.com (native USDC gas)
             <br />
-            cd packages/contracts && forge script script/Deploy.s.sol:DeployScript --rpc-url
-            http://127.0.0.1:8545 --broadcast --unlocked --sender
-            0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+            cd packages/contracts && pnpm deploy:arc-testnet
           </span>
         </div>
       )}
 
       {configNotice ? (
         <p className="text-sm text-orange">
-          No factory is wired, so nothing was sent. Deploy locally and set{" "}
+          No factory is wired, so nothing was sent. Deploy to Arc Testnet (or Anvil) and set{" "}
           <code>NEXT_PUBLIC_FACTORY_ADDRESS</code> — we will not fake a successful launch.
         </p>
       ) : null}

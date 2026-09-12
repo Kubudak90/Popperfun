@@ -7,7 +7,7 @@ apps/web        Next.js 15 App Router — landing, explore, launch, token
 apps/indexer    Stub worker (no RPC yet)
 packages/sdk    Labeled usd6 / native18 helpers
 packages/contracts  Foundry prototype (disposable)
-config          Arc testnet stub (zero addresses only)
+config          Official Arc Testnet (5042002). Factory env-configured; V4 left null.
 ```
 
 ## Product flow
@@ -22,7 +22,7 @@ v1 does not invent Uniswap V4 pool, hook, or manager addresses. The venue is a m
 
 The UI talks to mock catalog pops and, when configured, to a live factory.
 
-Wallet connect uses wagmi v2 (injected + optional WalletConnect). `/launch` sends `ArcLaunchFactory.launch(name, symbol, usd6)` when `NEXT_PUBLIC_FACTORY_ADDRESS` is a non-zero address. Zero / missing factory keeps the form fillable and never fakes a successful launch.
+Wallet connect uses wagmi v2 (injected). The default chain is official Arc Testnet (`5042002`). `/launch` sends `ArcLaunchFactory.launch(name, symbol, usd6)` when `NEXT_PUBLIC_FACTORY_ADDRESS` is a non-zero address. Zero / missing factory keeps the form fillable and never fakes a successful launch. Anvil is opt-in via env.
 
 Buy/sell writes are not wired yet. On-chain `/pop/0x…` pages read curve reserves and quotes.
 
@@ -45,4 +45,4 @@ Shared immutable economics (factory constants):
 
 ## Indexer
 
-Placeholder loop. Intended to follow `PopLaunched`, `Buy`, `Sell`, and graduation events once `config/arc.testnet.json` has a real RPC and factory.
+Placeholder loop. Intended to follow `PopLaunched`, `Buy`, `Sell`, and graduation events once a factory is deployed to Arc Testnet and set in env.

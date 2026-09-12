@@ -1,24 +1,43 @@
 {
   "name": "Arc Testnet",
-  "chainId": 0,
-  "rpcUrl": "",
+  "chainId": 5042002,
+  "chainIdHex": "0x4CEF52",
+  "rpcUrl": "https://rpc.testnet.arc.io",
+  "wsUrl": "wss://rpc.testnet.arc.io",
+  "explorer": "https://testnet.arcscan.app",
+  "faucet": "https://faucet.circle.com",
+  "source": "https://docs.arc.io/arc/references/rpc-endpoints",
+  "addChainSource": "https://docs.arc.io/integrate/wallets/add-arc-to-a-wallet",
   "nativeCurrency": {
-    "name": "USD Coin",
+    "name": "USDC",
     "symbol": "USDC",
     "decimals": 18,
-    "note": "Arc native gas token is USDC. Curve accounting is native18. Human config is usd6."
+    "note": "Native gas and bonding-curve msg.value are USDC at 18 decimals (native18). Human launch config is usd6. native18 = usd6 × 1e12."
   },
   "quoteAsset": "NATIVE_USDC",
   "curveFamily": "CONSTANT_PRODUCT",
+  "interfaces": {
+    "usdcErc20": {
+      "address": "0x3600000000000000000000000000000000000000",
+      "decimals": 6,
+      "note": "Official ERC-20 USDC interface on Arc. Not a second launch quote route — the curve quotes native USDC only."
+    },
+    "permit2": {
+      "address": "0x000000000022D473030F116dDEE9F6B43aC78BA3",
+      "note": "Canonical Permit2. Unused by the prototype launch path."
+    }
+  },
   "contracts": {
     "factory": "0x0000000000000000000000000000000000000000",
     "graduationVenue": "0x0000000000000000000000000000000000000000",
-    "note": "Placeholder zeros only. Do not invent Uniswap V4 pool or hook addresses."
+    "uniswapV4": null,
+    "uniswapV4Status": "UNVERIFIED",
+    "note": "Factory is env-configured after you deploy. Do not invent Uniswap V4 pool, hook, or manager addresses. Prototype graduation uses MockGraduationVenue."
   },
   "v1Constraints": [
-    "One quote asset: native USDC",
+    "One quote asset: native USDC (18-decimal msg.value)",
     "One curve family: constant-product",
     "Immutable launch economics",
-    "Mock graduation venue until real Uniswap V4 addresses exist"
+    "Mock graduation venue until official Uniswap V4 addresses exist on Arc"
   ]
 }

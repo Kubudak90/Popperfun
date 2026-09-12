@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { Button } from "@/components/button";
+import { ARC_TESTNET_CHAIN_ID, walletAddArcTestnet } from "@/lib/arc";
 import { targetChain } from "@/lib/chains";
 import { shortenAddress } from "@/lib/env";
 import { formatTxError } from "@/lib/wagmi";
@@ -69,12 +70,23 @@ export function ConnectWallet({ size = "sm" }: { size?: "sm" | "md" }) {
               {connector.type === "injected" ? "Browser wallet" : connector.name}
             </button>
           ))}
+          {targetChain.id === ARC_TESTNET_CHAIN_ID ? (
+            <button
+              type="button"
+              onClick={() => {
+                void walletAddArcTestnet().catch(() => undefined);
+              }}
+              className="flex w-full items-center justify-between rounded-2xl px-3 py-2.5 text-left font-display text-sm font-bold text-purple hover:bg-background"
+            >
+              Add Arc Testnet
+            </button>
+          ) : null}
           {error ? (
             <p className="px-3 py-2 text-sm text-orange">{formatTxError(error)}</p>
           ) : null}
           <p className="px-3 py-2 text-xs leading-relaxed text-muted">
-            Browser wallets (Rabby, MetaMask). Point them at {targetChain.name} / chain{" "}
-            {targetChain.id}.
+            Browser wallets (Rabby, MetaMask). Add Arc Testnet (5042002 / 0x4CEF52) — native gas is
+            USDC, 18 decimals.
           </p>
         </div>
       ) : null}

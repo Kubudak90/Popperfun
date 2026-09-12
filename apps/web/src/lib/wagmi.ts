@@ -1,26 +1,24 @@
 import { injected } from "@wagmi/core";
 import { createConfig, http } from "wagmi";
 import { publicEnv } from "@/lib/env";
-import { popperAnvil, targetChain } from "@/lib/chains";
+import { arcTestnet, popperAnvil, targetChain } from "@/lib/chains";
 
 /**
  * Import injected from @wagmi/core — not `wagmi/connectors`.
  * The connectors barrel pulls Coinbase/Base optional deps that break `next build`.
- * WalletConnect stays optional: add NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID and
- * a dedicated connector import only if that build stays green in your env.
  */
 const connectors = [injected({ shimDisconnect: true })];
 
 export const wagmiConfig = createConfig({
-  chains: targetChain.id === popperAnvil.id ? [popperAnvil] : [targetChain, popperAnvil],
+  chains: [arcTestnet, popperAnvil],
   connectors,
   transports: {
+    [arcTestnet.id]: http(
+      targetChain.id === arcTestnet.id ? publicEnv.rpcUrl : "https://rpc.testnet.arc.io",
+    ),
     [popperAnvil.id]: http(
       targetChain.id === popperAnvil.id ? publicEnv.rpcUrl : "http://127.0.0.1:8545",
     ),
-    ...(targetChain.id !== popperAnvil.id
-      ? { [targetChain.id]: http(publicEnv.rpcUrl) }
-      : {}),
   },
   ssr: true,
 });

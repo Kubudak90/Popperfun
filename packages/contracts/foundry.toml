@@ -10,6 +10,7 @@ ffi = false
 
 [rpc_endpoints]
 anvil = "http://127.0.0.1:8545"
+arc_testnet = "https://rpc.testnet.arc.io"
 
 [fmt]
 line_length = 100

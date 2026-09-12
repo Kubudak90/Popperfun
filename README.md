@@ -13,7 +13,7 @@ apps/web           Next.js 15 App Router (the product)
 apps/indexer       Stub TypeScript worker
 packages/sdk       usd6 / native18 helpers
 packages/contracts Foundry prototype (disposable Arc launchpad)
-config             arc.testnet.json stub
+config             official Arc Testnet params (V4 left null)
 docs               architecture + unit rule
 ```
 
@@ -76,63 +76,76 @@ forge install foundry-rs/forge-std --no-commit
 forge test -vv
 ```
 
-Copy [apps/web/.env.example](apps/web/.env.example) to `apps/web/.env.local` for local Anvil. The UI runs with a zero factory.
+Copy [apps/web/.env.example](apps/web/.env.example) to `apps/web/.env.local`. Defaults are **Arc Testnet**. The UI runs with a zero factory until you deploy.
 
-## Local wallet + launch
+## Arc Testnet
 
-Needs [Foundry](https://book.getfoundry.sh/getting-started/installation) (`anvil`, `forge`, `cast`) and a browser wallet (Rabby / MetaMask). Connect uses the injected connector so `next build` stays free of unused Coinbase/WalletConnect optional deps.
+Official params from [docs.arc.io](https://docs.arc.io/arc/references/rpc-endpoints) / [add Arc to a wallet](https://docs.arc.io/integrate/wallets/add-arc-to-a-wallet). This is a **prototype** — not production. Graduation uses `MockGraduationVenue` until official Uniswap V4 addresses exist on Arc. Do not invent V4 pool, hook, or manager addresses.
 
-1. Start Anvil (native USDC semantics: 18-decimal value):
+| Field | Value |
+| --- | --- |
+| Name | Arc Testnet |
+| Chain ID | `5042002` (`0x4CEF52`) |
+| RPC HTTP | `https://rpc.testnet.arc.io` |
+| RPC WS | `wss://rpc.testnet.arc.io` |
+| Explorer | `https://testnet.arcscan.app` |
+| Native gas | USDC, **18 decimals** (`msg.value` / native18) |
+| ERC-20 USDC interface | `0x3600000000000000000000000000000000000000` (6 decimals) — **not** a second launch quote route |
+| Faucet | https://faucet.circle.com |
+| Uniswap V4 | UNVERIFIED / null |
+
+### 1. Add the network to your wallet
+
+In the app: **Connect Wallet → Add Arc Testnet**, or use the wrong-network banner. That sends official EIP-3085 `wallet_addEthereumChain` params (`0x4CEF52`, USDC/18, `rpc.testnet.arc.io`, ArcScan).
+
+Manual add: chain `5042002`, RPC `https://rpc.testnet.arc.io`, symbol `USDC`, explorer `https://testnet.arcscan.app`.
+
+### 2. Get gas
+
+Request testnet USDC from [Circle's faucet](https://faucet.circle.com). On Arc, **gas is native USDC**.
+
+### 3. Deploy the prototype (needs your key)
 
 ```bash
-anvil
-```
-
-2. Deploy the prototype. The first Anvil account is unlocked — this command does not put a private key in the repo:
-
-```bash
+export PRIVATE_KEY=0x…          # never commit this
+export RPC_URL=https://rpc.testnet.arc.io   # optional; this is the default
 cd packages/contracts
-forge script script/Deploy.s.sol:DeployScript \
-  --rpc-url http://127.0.0.1:8545 \
-  --broadcast \
-  --unlocked \
-  --sender 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+pnpm deploy:arc-testnet
+# or: make deploy-arc-testnet
 ```
 
-Or: `pnpm --filter @popper/contracts deploy:anvil`
-
-3. Copy the printed `factory` address into `apps/web/.env.local`:
-
-```bash
-cp apps/web/.env.example apps/web/.env.local
-```
+The script prints `factory` and `venue`. Paste factory into `apps/web/.env.local`:
 
 ```
-NEXT_PUBLIC_RPC_URL=http://127.0.0.1:8545
-NEXT_PUBLIC_CHAIN_ID=31337
+NEXT_PUBLIC_RPC_URL=https://rpc.testnet.arc.io
+NEXT_PUBLIC_CHAIN_ID=5042002
 NEXT_PUBLIC_FACTORY_ADDRESS=0x<factory from the deploy log>
+NEXT_PUBLIC_EXPLORER_TX_URL=https://testnet.arcscan.app/tx/{hash}
 ```
 
-4. Point the wallet at Anvil: chain id `31337`, RPC `http://127.0.0.1:8545`, currency USDC / 18 decimals. Import an Anvil account from the Anvil banner (local only).
+Without `PRIVATE_KEY` the script only checks RPC (`cast chain-id` / `cast block-number`) and dry-runs. It will not broadcast. There is no factory on Arc in this repo until you deploy.
 
-5. Restart the web app so Next picks up env:
+### 4. Launch from the UI
 
 ```bash
 pnpm --filter web dev
 ```
 
-6. Open [http://127.0.0.1:43127/launch](http://127.0.0.1:43127/launch), connect, submit. The factory function is `launch(name, symbol, graduationThresholdUsd6)` — the form sends **usd6 atoms** (`69000` → `69000000000`). Success shows curve + token + tx hash and links to `/pop/0x<curve>`.
+Open [http://127.0.0.1:43127/launch](http://127.0.0.1:43127/launch), connect on Arc Testnet, submit. `ArcLaunchFactory.launch` takes **usd6 atoms** (`69000` → `69000000000`). Success shows curve + token + an [ArcScan](https://testnet.arcscan.app) tx link and `/pop/0x<curve>`.
 
-Smoke the same path without a browser:
+If the factory is zero, the form stays fillable and explains this deploy path. It never fakes an on-chain success.
+
+## Local Anvil (optional)
+
+For fork-free contract work, set `NEXT_PUBLIC_CHAIN_ID=31337` and `NEXT_PUBLIC_RPC_URL=http://127.0.0.1:8545`.
 
 ```bash
-cast send $FACTORY "launch(string,string,uint256)" "Cloudkitty" "CKTY" 69000000000 \
-  --rpc-url http://127.0.0.1:8545 \
-  --unlocked \
-  --from 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+anvil
+cd packages/contracts
+pnpm deploy:anvil
 ```
 
-If `NEXT_PUBLIC_FACTORY_ADDRESS` is missing or zero, `/launch` stays fillable and the submit path explains this deploy flow. It never reports a fake on-chain success.
+Import an Anvil account from the Anvil banner (local only). Same `launch(name, symbol, usd6)` path.
 
 ## Deploy on Vercel
 

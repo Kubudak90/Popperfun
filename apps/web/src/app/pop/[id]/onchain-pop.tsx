@@ -7,7 +7,7 @@ import { Button } from "@/components/button";
 import { CurveBar } from "@/components/curve-bar";
 import { ArrowIcon } from "@/components/icons";
 import { PopperMark } from "@/components/logo";
-import { shortenAddress } from "@/lib/env";
+import { addressExplorerUrl, shortenAddress } from "@/lib/env";
 import { ACCENT_GRADIENT } from "@/lib/pops";
 import { cn } from "@/lib/cn";
 import type { Address } from "viem";
@@ -118,8 +118,36 @@ export function OnchainPop({ curve }: { curve: Address }) {
                 <Badge kind={phase === "graduated" ? "LIVE" : "NEW"} />
               </div>
               <p className="mt-1 text-muted">
-                ${ticker} · curve {shortenAddress(curve)}
-                {token.data ? ` · token ${shortenAddress(token.data)}` : null}
+                ${ticker} ·{" "}
+                {addressExplorerUrl(curve) ? (
+                  <a
+                    className="font-bold text-purple hover:underline"
+                    href={addressExplorerUrl(curve)!}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    curve {shortenAddress(curve)}
+                  </a>
+                ) : (
+                  <>curve {shortenAddress(curve)}</>
+                )}
+                {token.data ? (
+                  addressExplorerUrl(token.data) ? (
+                    <>
+                      {" · "}
+                      <a
+                        className="font-bold text-purple hover:underline"
+                        href={addressExplorerUrl(token.data)!}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        token {shortenAddress(token.data)}
+                      </a>
+                    </>
+                  ) : (
+                    <> · token {shortenAddress(token.data)}</>
+                  )
+                ) : null}
               </p>
             </div>
           </div>
