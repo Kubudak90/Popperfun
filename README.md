@@ -32,7 +32,7 @@ The UI is the first slice. Wallet connect, launch submit, and buy/sell are clear
 
 Primary CTA is a pill, Pop Purple → Electric Blue, labeled **Launch Token**. Secondary is a white/outline pill: **Explore Pops**. Badges: **LIVE** (green), **NEW** (purple), **HOT** (orange).
 
-Display type is Nunito. Body is Inter. Logo is a bubble `p` with four droplets in the accent colors.
+Display type is Plus Jakarta Sans. Body is Inter. Logo is a bubble `p` with four droplets in the accent colors.
 
 Footer words: **POP / CREATE / LAUNCH / BELONG**.
 

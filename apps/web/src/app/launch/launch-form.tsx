@@ -127,18 +127,18 @@ export function LaunchForm() {
         />
       </Field>
 
-      <div className="rounded-[24px] border border-border bg-background p-4">
-        <p className="font-display text-xs font-extrabold uppercase tracking-[0.16em] text-purple">
+      <div className="rounded-[20px] border border-border bg-cloud/80 p-4 dark:bg-midnight/40">
+        <p className="font-display text-[11px] font-extrabold uppercase tracking-[0.18em] text-muted">
           Unit sanity · @popper/sdk
         </p>
-        <p className="mt-2 text-sm text-muted">
-          Never mix unlabeled integers. Config is <code className="font-bold">usd6</code>.
-          Curve accounting is <code className="font-bold">native18</code>.
+        <p className="mt-2 text-sm leading-relaxed text-muted">
+          Never mix unlabeled integers. Config is <code className="font-semibold text-midnight dark:text-cloud">usd6</code>.
+          Curve accounting is <code className="font-semibold text-midnight dark:text-cloud">native18</code>.
         </p>
         {units.usd6 !== null && units.native18 !== null ? (
           <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
-            <div className="rounded-2xl bg-card p-3">
-              <dt className="text-xs uppercase tracking-wide text-muted">usd6</dt>
+            <div className="rounded-[16px] bg-card p-3">
+              <dt className="text-[11px] uppercase tracking-wide text-muted">usd6</dt>
               <dd className="mt-1 font-display text-lg font-extrabold">
                 ${formatUsd6(units.usd6)}
               </dd>
@@ -146,8 +146,8 @@ export function LaunchForm() {
                 {units.usd6.toString()} atoms
               </dd>
             </div>
-            <div className="rounded-2xl bg-card p-3">
-              <dt className="text-xs uppercase tracking-wide text-muted">native18</dt>
+            <div className="rounded-[16px] bg-card p-3">
+              <dt className="text-[11px] uppercase tracking-wide text-muted">native18</dt>
               <dd className="mt-1 font-display text-lg font-extrabold">
                 {formatNative18(units.native18, { digits: 2 })}
               </dd>

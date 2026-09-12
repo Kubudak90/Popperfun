@@ -39,10 +39,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${jakarta.variable} min-h-screen antialiased`}>
+      <body className={`${inter.variable} ${jakarta.variable} flex min-h-screen flex-col antialiased`}>
         <Providers>
           <Nav />
-          <main>{children}</main>
+          <main className="flex-1">{children}</main>
           <Footer />
         </Providers>
       </body>

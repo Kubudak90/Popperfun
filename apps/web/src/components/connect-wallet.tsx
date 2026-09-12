@@ -15,7 +15,13 @@ export function ConnectWallet({ size = "sm" }: { size?: "sm" | "md" }) {
   }
 
   return (
-    <Button variant="secondary" size={size} onClick={connect} disabled={connecting}>
+    <Button
+      variant="secondary"
+      size={size}
+      onClick={connect}
+      disabled={connecting}
+      className="border-midnight/10 font-bold shadow-none dark:border-cloud/12"
+    >
       {connecting ? "Connecting…" : "Connect Wallet"}
     </Button>
   );

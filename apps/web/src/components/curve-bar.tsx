@@ -11,7 +11,7 @@ export function CurveBar({
   return (
     <div
       className={cn(
-        "h-2 w-full overflow-hidden rounded-full bg-border/80",
+        "h-2.5 w-full overflow-hidden rounded-full bg-midnight/8 dark:bg-cloud/10",
         className,
       )}
       role="progressbar"

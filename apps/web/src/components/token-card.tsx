@@ -20,36 +20,35 @@ export function TokenCard({ pop, className }: { pop: Pop; className?: string }) 
     <Link
       href={`/pop/${pop.id}`}
       className={cn(
-        "group flex flex-col rounded-[28px] border border-border bg-card p-4 shadow-[var(--shadow)] transition-all duration-300 hover:-translate-y-1 hover:border-purple/30",
+        "group relative flex flex-col rounded-[22px] border border-border bg-card p-5 shadow-[var(--shadow)] transition-all duration-200 hover:-translate-y-0.5 hover:border-purple/25 hover:shadow-[0_16px_40px_color-mix(in_srgb,#101426_8%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple",
         className,
       )}
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div
-            className={cn(
-              "grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br font-display text-lg font-extrabold text-white shadow-md",
-              ACCENT_GRADIENT[pop.accent],
-            )}
-          >
-            {pop.symbol.slice(0, 2)}
-          </div>
-          <div>
-            <p className="font-display text-lg font-extrabold leading-tight">{pop.name}</p>
-            <p className="text-sm text-muted">${pop.symbol}</p>
-          </div>
+      <Badge kind={pop.badge} className="absolute right-4 top-4" />
+
+      <div className="flex min-w-0 items-center gap-3 pr-[4.5rem]">
+        <div
+          className={cn(
+            "grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br font-display text-sm font-extrabold text-white",
+            ACCENT_GRADIENT[pop.accent],
+          )}
+        >
+          {pop.symbol.slice(0, 2)}
         </div>
-        <Badge kind={pop.badge} />
+        <div className="min-w-0">
+          <p className="truncate font-display text-lg font-extrabold leading-tight">{pop.name}</p>
+          <p className="text-sm text-muted">${pop.symbol}</p>
+        </div>
       </div>
 
-      <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted">{pop.description}</p>
+      <p className="mt-3 line-clamp-2 min-h-10 text-sm leading-relaxed text-muted">{pop.description}</p>
 
       <div className="mt-5 space-y-2">
         <div className="flex items-center justify-between text-xs font-medium">
           <span className="text-muted">
             {pop.phase === "graduated" ? "Graduated" : "Curve progress"}
           </span>
-          <span className="font-display font-bold text-foreground">{progress}%</span>
+          <span className="font-display font-bold">{progress}%</span>
         </div>
         <CurveBar value={progress} />
       </div>
@@ -70,6 +69,6 @@ export function TokenCard({ pop, className }: { pop: Pop; className?: string }) 
 
 export function TokenCardSkeleton() {
   return (
-    <div className="h-[248px] animate-pulse rounded-[28px] border border-border bg-card" />
+    <div className="h-[248px] animate-pulse rounded-[22px] border border-border bg-card" />
   );
 }

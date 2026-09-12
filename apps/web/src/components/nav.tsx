@@ -21,18 +21,18 @@ export function Nav() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-[var(--nav)] backdrop-blur-xl">
-      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+      <div className="page-wrap flex h-16 items-center justify-between gap-3">
         <Link href="/" className="shrink-0" onClick={() => setOpen(false)}>
-          <Logo size={36} />
+          <Logo size={32} />
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-0.5 md:flex">
           {LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={cn(
-                "rounded-full px-4 py-2 font-display text-sm font-bold transition",
+                "rounded-full px-3.5 py-1.5 font-display text-sm font-semibold transition",
                 pathname === link.href || pathname.startsWith(`${link.href}/`)
                   ? "bg-purple/10 text-purple"
                   : "text-muted hover:text-foreground",
@@ -48,8 +48,8 @@ export function Nav() {
           <div className="hidden sm:block">
             <ConnectWallet />
           </div>
-          <Button href="/launch" size="sm" className="hidden sm:inline-flex">
-            <PopperMark size={16} className="text-white dark:text-white" />
+          <Button href="/launch" size="sm" className="hidden h-10 sm:inline-flex">
+            <PopperMark size={15} className="text-white dark:text-white" />
             Launch Token
             <ArrowIcon />
           </Button>
@@ -69,7 +69,7 @@ export function Nav() {
       </div>
 
       {open ? (
-        <div className="border-t border-border px-4 py-4 md:hidden">
+        <div className="border-t border-border px-5 py-4 md:hidden">
           <div className="flex flex-col gap-2">
             {LINKS.map((link) => (
               <Link

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function LaunchPage() {
   return (
-    <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+    <div className="page-wrap grid gap-10 py-12 sm:py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
       <div>
         <p className="font-display text-xs font-extrabold uppercase tracking-[0.18em] text-pink">
           Create
@@ -20,13 +20,13 @@ export default function LaunchPage() {
           Launch, collect, and be part of what&apos;s next. Fixed supply, native
           USDC, immutable graduation — one curve family.
         </p>
-        <div className="mt-8 rounded-[32px] border border-border bg-card p-5 shadow-[var(--shadow)] sm:p-8">
+        <div className="mt-8 rounded-[22px] border border-border bg-card p-5 shadow-[var(--shadow)] sm:p-8">
           <LaunchForm />
         </div>
       </div>
 
       <aside className="space-y-4 lg:sticky lg:top-24">
-        <div className="rounded-[28px] border border-border bg-card p-6">
+        <div className="rounded-[22px] border border-border bg-card p-6">
           <p className="font-display text-sm font-extrabold text-purple">Economics lock at create</p>
           <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted">
             <li>1,000,000,000 token supply</li>
@@ -35,7 +35,7 @@ export default function LaunchPage() {
             <li>Quote asset: native USDC only</li>
           </ul>
         </div>
-        <div className="rounded-[28px] bg-midnight p-6 text-cloud">
+        <div className="rounded-[22px] bg-midnight p-6 text-cloud">
           <p className="font-display text-2xl font-extrabold">Ideas pop here.</p>
           <p className="mt-2 text-sm leading-relaxed text-cloud/70">
             A more playful on-chain future. Graduation hits a mock venue until

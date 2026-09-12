@@ -46,7 +46,7 @@ export function Button({
   ...props
 }: ButtonProps | LinkButtonProps) {
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-full font-display font-extrabold tracking-tight transition-all duration-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50",
+    "inline-flex items-center justify-center gap-2 rounded-full font-display font-extrabold tracking-tight transition-all duration-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple focus-visible:ring-offset-2 focus-visible:ring-offset-background",
     variants[variant],
     sizes[size],
     className,

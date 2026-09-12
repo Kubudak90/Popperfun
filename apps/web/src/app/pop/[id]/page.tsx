@@ -32,12 +32,15 @@ export default async function PopPage({ params }: Props) {
   const remaining = Math.max(0, pop.graduationUsd - pop.raisedUsd);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      <Link href="/explore" className="text-sm font-bold text-muted hover:text-purple">
+    <div className="page-wrap py-12 sm:py-14">
+      <Link
+        href="/explore"
+        className="text-sm font-bold text-muted transition hover:text-purple"
+      >
         ← All pops
       </Link>
 
-      <div className="mt-6 grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+      <div className="mt-6 grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
         <div>
           <div className="flex flex-wrap items-start gap-4">
             <div
@@ -63,7 +66,7 @@ export default async function PopPage({ params }: Props) {
 
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">{pop.description}</p>
 
-          <div className="mt-8 rounded-[32px] border border-border bg-card p-6 shadow-[var(--shadow)]">
+          <div className="mt-8 rounded-[22px] border border-border bg-card p-6 shadow-[var(--shadow)]">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <p className="font-display text-xs font-extrabold uppercase tracking-[0.16em] text-purple">
@@ -88,8 +91,20 @@ export default async function PopPage({ params }: Props) {
             </dl>
           </div>
 
-          <div className="mt-4 rounded-[28px] border border-border bg-card p-5">
-            <p className="font-display font-extrabold">Graduation status</p>
+          <div className="mt-4 rounded-[22px] border border-border bg-card p-5">
+            <div className="flex items-center gap-2">
+              <span
+                className={cn(
+                  "h-2 w-2 rounded-full",
+                  pop.phase === "graduated"
+                    ? "bg-live"
+                    : pop.phase === "prepared"
+                      ? "bg-orange"
+                      : "bg-purple",
+                )}
+              />
+              <p className="font-display font-extrabold">Graduation status</p>
+            </div>
             <p className="mt-2 text-sm leading-relaxed text-muted">
               {pop.phase === "graduated"
                 ? "Phase 2 complete. Liquidity was sent to MockGraduationVenue — not a real Uniswap V4 pool."
@@ -100,9 +115,9 @@ export default async function PopPage({ params }: Props) {
           </div>
         </div>
 
-        <div>
+        <div className="lg:sticky lg:top-24">
           <TradePanel pop={pop} />
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button href="/launch" size="sm">
               <PopperMark size={16} className="text-white dark:text-white" />
               Launch Token

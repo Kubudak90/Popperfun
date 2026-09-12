@@ -2,7 +2,7 @@ import type { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "rea
 import { cn } from "@/lib/cn";
 
 const fieldClass =
-  "w-full rounded-2xl border border-border bg-background px-4 py-3 text-[15px] text-foreground outline-none transition focus:border-purple focus:ring-4 focus:ring-purple/15 placeholder:text-muted/70";
+  "w-full rounded-[16px] border border-border bg-background px-4 py-3 text-[15px] text-foreground outline-none transition placeholder:text-muted/70 focus:border-purple focus:ring-4 focus:ring-blue/25 focus-visible:outline-none";
 
 export function Input({ className, ...props }: InputHTMLAttributes<HTMLInputElement>) {
   return <input className={cn(fieldClass, className)} {...props} />;

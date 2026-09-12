@@ -7,6 +7,36 @@ type LogoProps = {
   wordmarkClassName?: string;
 };
 
+const DROPLETS = (
+  <>
+    {/* Burst order: Electric Blue → Pop Purple → Bubble Pink → Burst Orange */}
+    <path
+      fill="#1E8BFF"
+      d="M48.8 15.6c-1.2 3.8 1.6 7.6 5.4 7.4 3.6-.2 6.2-3.8 5-7.2-1.4-3.8-7.8-5.2-10.4-.2Z"
+    />
+    <path
+      fill="#6F3BFF"
+      d="M60.2 6.4c-.2 3.8 3.2 6.8 6.8 6.2 3.4-.6 5.4-4.4 3.8-7.4C69 2 63.2 1.8 60.2 6.4Z"
+    />
+    <path
+      fill="#D94CFF"
+      d="M71.4 5.8c.8 3.6 4.6 5.8 7.8 4.4 3-1.2 4.2-5 2.2-7.6C79.2-.2 73.6 1.2 71.4 5.8Z"
+    />
+    <path
+      fill="#FF8A4C"
+      d="M73.2 17.6c2.4 3.2 6.8 3.6 9 1 2.2-2.4 1.6-6.6-1.2-8.4-3-2-8.4.8-7.8 7.4Z"
+    />
+  </>
+);
+
+const LETTER_P = (
+  <path
+    fill="currentColor"
+    fillRule="evenodd"
+    d="M23.6 9.2c4.8-3.4 16.2-3.8 23.4 3.2 7.4 7.2 9 18.6 4.8 27.4-3.6 7.6-12.8 12.6-22 12.6h-3.4v19.4c0 3.2-3.2 5.6-6.2 5-2.6-.4-4.6-3-4.6-5.8V16.4c0-3.4 2.8-5 8-7.2Zm8 15v12.2h7.6c5.6 0 9-3.4 9-6.4 0-3.2-3.6-5.8-8.8-5.8H31.6Z"
+  />
+);
+
 /** Bubble lowercase p with four droplets popping from the top-right. */
 export function PopperMark({
   size = 40,
@@ -25,31 +55,21 @@ export function PopperMark({
       className={cn("text-midnight dark:text-cloud", className)}
       aria-hidden
     >
-      {/* Four colorful droplets bursting from the top-right of the bowl */}
-      <ellipse cx="49" cy="18" rx="4.4" ry="6" transform="rotate(-34 49 18)" fill="#1E8BFF" />
-      <ellipse cx="58.5" cy="10" rx="4.8" ry="6.4" transform="rotate(-16 58.5 10)" fill="#6F3BFF" />
-      <ellipse cx="69" cy="7" rx="4.6" ry="6.2" transform="rotate(-4 69 7)" fill="#D94CFF" />
-      <ellipse cx="73.5" cy="19" rx="5" ry="6.6" transform="rotate(24 73.5 19)" fill="#FF8A4C" />
-
-      {/* Liquid lowercase p with an open bowl */}
-      <path
-        fill="currentColor"
-        fillRule="evenodd"
-        d="M23 10.4c2.6-1.3 9.4-1.8 15 .6 7.8 3.2 13 10.8 13 19.4 0 10-7.2 17.8-17.4 17.8H28.2V72c0 2.7-2.3 4.6-5.1 4.6S18 74.7 18 72V15.2C18 12.8 20.4 11.2 23 10.4ZM29.2 23.2v16.2h6c5.6 0 9.4-3.8 9.4-8.1 0-4.2-3.8-8.1-9.4-8.1h-6Z"
-      />
-      <ellipse cx="31" cy="24" rx="5" ry="3" fill="white" fillOpacity="0.28" />
+      {DROPLETS}
+      {LETTER_P}
+      <ellipse cx="32.2" cy="23.4" rx="5.2" ry="2.7" fill="white" fillOpacity="0.28" />
     </svg>
   );
 }
 
-export function Logo({ size = 36, withWordmark = true, className, wordmarkClassName }: LogoProps) {
+export function Logo({ size = 34, withWordmark = true, className, wordmarkClassName }: LogoProps) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
       <PopperMark size={size} className="logo-mark" />
       {withWordmark ? (
         <span
           className={cn(
-            "font-display text-[1.35rem] font-extrabold leading-none tracking-tight text-midnight dark:text-cloud",
+            "font-display text-[1.2rem] font-extrabold leading-none tracking-tight text-midnight dark:text-cloud",
             wordmarkClassName,
           )}
         >

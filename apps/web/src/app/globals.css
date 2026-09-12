@@ -23,20 +23,20 @@
   --background: #f6f7fb;
   --foreground: #101426;
   --card: #ffffff;
-  --muted: color-mix(in srgb, #101426 52%, #f6f7fb);
-  --border: color-mix(in srgb, #101426 10%, #f6f7fb);
-  --nav: color-mix(in srgb, #f6f7fb 86%, transparent);
-  --shadow: 0 18px 44px color-mix(in srgb, #101426 8%, transparent);
+  --muted: color-mix(in srgb, #101426 50%, #f6f7fb);
+  --border: color-mix(in srgb, #101426 9%, #f6f7fb);
+  --nav: color-mix(in srgb, #f6f7fb 88%, transparent);
+  --shadow: 0 14px 36px color-mix(in srgb, #101426 6%, transparent);
 }
 
 .dark {
   --background: #101426;
   --foreground: #f6f7fb;
-  --card: color-mix(in srgb, #f6f7fb 7%, #101426);
-  --muted: color-mix(in srgb, #f6f7fb 62%, #101426);
-  --border: color-mix(in srgb, #f6f7fb 12%, #101426);
-  --nav: color-mix(in srgb, #101426 82%, transparent);
-  --shadow: 0 18px 44px color-mix(in srgb, #101426 55%, transparent);
+  --card: color-mix(in srgb, #f6f7fb 6.5%, #101426);
+  --muted: color-mix(in srgb, #f6f7fb 60%, #101426);
+  --border: color-mix(in srgb, #f6f7fb 11%, #101426);
+  --nav: color-mix(in srgb, #101426 84%, transparent);
+  --shadow: 0 14px 36px color-mix(in srgb, #101426 45%, transparent);
 }
 
 html {
@@ -54,10 +54,49 @@ body {
   color: #ffffff;
 }
 
+:focus-visible {
+  outline: 2px solid #6f3bff;
+  outline-offset: 3px;
+}
+
+.page-wrap {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 72rem;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .page-wrap {
+    padding-inline: 1.5rem;
+  }
+}
+
+.section {
+  padding-block: 5rem;
+}
+
+.hero-wash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 52% 48% at 16% 8%, color-mix(in srgb, #6f3bff 26%, transparent), transparent 72%),
+    radial-gradient(ellipse 46% 42% at 88% 14%, color-mix(in srgb, #d94cff 20%, transparent), transparent 70%),
+    radial-gradient(ellipse 42% 38% at 40% 86%, color-mix(in srgb, #1e8bff 18%, transparent), transparent 72%);
+}
+
+.dark .hero-wash {
+  background:
+    radial-gradient(ellipse 52% 48% at 16% 8%, color-mix(in srgb, #6f3bff 34%, transparent), transparent 72%),
+    radial-gradient(ellipse 46% 42% at 88% 14%, color-mix(in srgb, #d94cff 24%, transparent), transparent 70%),
+    radial-gradient(ellipse 42% 38% at 40% 86%, color-mix(in srgb, #1e8bff 22%, transparent), transparent 72%);
+}
+
 @keyframes pop-in {
   from {
-    opacity: 0.001;
-    transform: translateY(8px);
+    opacity: 0.2;
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -65,44 +104,29 @@ body {
   }
 }
 
-@keyframes float-droplet {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
 .animate-pop {
-  animation: pop-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.animate-float {
-  animation: float-droplet 5.5s ease-in-out infinite;
+  animation: pop-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-pop,
-  .animate-float {
+  .animate-pop {
     animation: none;
   }
 }
 
 .cta-gradient {
-  background-image: linear-gradient(90deg, #6f3bff, #1e8bff);
+  background-image: linear-gradient(105deg, #6f3bff 0%, #1e8bff 100%);
 }
 
 .orb {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(56px);
+  filter: blur(80px);
   pointer-events: none;
 }
 
 .dark .logo-mark {
   filter:
-    drop-shadow(0 0 10px rgba(111, 59, 255, 0.45))
-    drop-shadow(0 0 18px rgba(30, 139, 255, 0.28));
+    drop-shadow(0 0 10px rgba(111, 59, 255, 0.5))
+    drop-shadow(0 0 20px rgba(30, 139, 255, 0.28));
 }
