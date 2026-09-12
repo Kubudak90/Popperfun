@@ -78,6 +78,19 @@ forge test -vv
 
 Copy [.env.example](.env.example) if you later add an Arc RPC. The UI runs without it.
 
+## Deploy on Vercel
+
+`vercel.json` at the repo root builds the web app (`pnpm --filter web build`).
+
+Anonymous CLI deploy (claimable, then yours):
+
+```bash
+# from a standalone web+sdk slice, or after `vercel login`
+pnpm dlx vercel deploy --prod --yes
+```
+
+If you import this monorepo into the Vercel dashboard, set **Root Directory** to `apps/web` so Next.js is detected. `@popper/sdk` stays a workspace package.
+
 ## Pages
 
 | Route | What you get |
