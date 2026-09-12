@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
+import { NetworkBanner } from "@/components/network-banner";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${jakarta.variable} flex min-h-screen flex-col antialiased`}>
         <Providers>
           <Nav />
+          <NetworkBanner />
           <main className="flex-1">{children}</main>
           <Footer />
         </Providers>

@@ -17,7 +17,7 @@ config             arc.testnet.json stub
 docs               architecture + unit rule
 ```
 
-The UI is the first slice. Wallet connect, launch submit, and buy/sell are clearly stubbed — no secrets and no live RPC required.
+The UI runs without a wallet. Connect and `/launch` become on-chain when a factory address and RPC are set. Zero addresses mean not wired — the app will not fake a successful launch. Buy/sell writes are not shipped yet.
 
 ## Brand
 
@@ -76,7 +76,63 @@ forge install foundry-rs/forge-std --no-commit
 forge test -vv
 ```
 
-Copy [.env.example](.env.example) if you later add an Arc RPC. The UI runs without it.
+Copy [apps/web/.env.example](apps/web/.env.example) to `apps/web/.env.local` for local Anvil. The UI runs with a zero factory.
+
+## Local wallet + launch
+
+Needs [Foundry](https://book.getfoundry.sh/getting-started/installation) (`anvil`, `forge`, `cast`) and a browser wallet (Rabby / MetaMask). Connect uses the injected connector so `next build` stays free of unused Coinbase/WalletConnect optional deps.
+
+1. Start Anvil (native USDC semantics: 18-decimal value):
+
+```bash
+anvil
+```
+
+2. Deploy the prototype. The first Anvil account is unlocked — this command does not put a private key in the repo:
+
+```bash
+cd packages/contracts
+forge script script/Deploy.s.sol:DeployScript \
+  --rpc-url http://127.0.0.1:8545 \
+  --broadcast \
+  --unlocked \
+  --sender 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+```
+
+Or: `pnpm --filter @popper/contracts deploy:anvil`
+
+3. Copy the printed `factory` address into `apps/web/.env.local`:
+
+```bash
+cp apps/web/.env.example apps/web/.env.local
+```
+
+```
+NEXT_PUBLIC_RPC_URL=http://127.0.0.1:8545
+NEXT_PUBLIC_CHAIN_ID=31337
+NEXT_PUBLIC_FACTORY_ADDRESS=0x<factory from the deploy log>
+```
+
+4. Point the wallet at Anvil: chain id `31337`, RPC `http://127.0.0.1:8545`, currency USDC / 18 decimals. Import an Anvil account from the Anvil banner (local only).
+
+5. Restart the web app so Next picks up env:
+
+```bash
+pnpm --filter web dev
+```
+
+6. Open [http://127.0.0.1:43127/launch](http://127.0.0.1:43127/launch), connect, submit. The factory function is `launch(name, symbol, graduationThresholdUsd6)` — the form sends **usd6 atoms** (`69000` → `69000000000`). Success shows curve + token + tx hash and links to `/pop/0x<curve>`.
+
+Smoke the same path without a browser:
+
+```bash
+cast send $FACTORY "launch(string,string,uint256)" "Cloudkitty" "CKTY" 69000000000 \
+  --rpc-url http://127.0.0.1:8545 \
+  --unlocked \
+  --from 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+```
+
+If `NEXT_PUBLIC_FACTORY_ADDRESS` is missing or zero, `/launch` stays fillable and the submit path explains this deploy flow. It never reports a fake on-chain success.
 
 ## Deploy on Vercel
 
@@ -97,8 +153,8 @@ If you import this monorepo into the Vercel dashboard, set **Root Directory** to
 | --- | --- |
 | `/` | Hero, brand traits, featured pops |
 | `/explore` | Grid of mock pops + empty search state |
-| `/launch` | Launch form + usd6 ↔ native18 sanity |
-| `/pop/[id]` | Curve progress, buy/sell stub, graduation status |
+| `/launch` | Launch form + usd6 → factory `launch` when wired |
+| `/pop/[id]` | Catalog pops, or live curve reads at `/pop/0x…` |
 
 ## v1 constraints
 

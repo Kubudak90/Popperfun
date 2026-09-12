@@ -11,9 +11,13 @@
   },
   "dependencies": {
     "@popper/sdk": "workspace:*",
+    "@tanstack/react-query": "^5.102.8",
+    "@wagmi/core": "^2.22.1",
     "next": "15.5.11",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "viem": "^2.56.3",
+    "wagmi": "^2.19.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

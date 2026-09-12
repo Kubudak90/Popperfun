@@ -1,46 +1,54 @@
 "use client";
 
-import { useState } from "react";
+import { bondingCurveAbi } from "@popper/sdk";
+import { useMemo, useState } from "react";
+import { formatUnits, parseUnits, type Address } from "viem";
+import { useAccount, useReadContract } from "wagmi";
 import { Button } from "@/components/button";
+import { ConnectWallet } from "@/components/connect-wallet";
 import { Input } from "@/components/input";
-import { useWallet } from "@/components/wallet-provider";
 import { cn } from "@/lib/cn";
-import type { Pop } from "@/lib/pops";
+import type { Pop, PopPhase } from "@/lib/pops";
 
 const SLIPPAGE = ["0.5", "1.0", "2.0"] as const;
 
-export function TradePanel({ pop }: { pop: Pop }) {
-  const { address, connect, connecting } = useWallet();
+type TradeTarget = {
+  symbol: string;
+  phase: PopPhase;
+  curveAddress?: Address;
+};
+
+export function TradePanel({ pop }: { pop: Pop | TradeTarget }) {
+  const { address, isConnected } = useAccount();
   const [side, setSide] = useState<"buy" | "sell">("buy");
   const [amount, setAmount] = useState("100");
   const [slippage, setSlippage] = useState("1.0");
-  const [message, setMessage] = useState<string | null>(null);
-
+  const curveAddress = "curveAddress" in pop ? pop.curveAddress : undefined;
   const graduated = pop.phase === "graduated";
 
-  function submit() {
-    if (graduated) {
-      setMessage("This pop already graduated. Trading lives on the venue now.");
-      return;
+  const parsedNative18 = useMemo(() => {
+    try {
+      if (!amount || Number(amount) <= 0) return null;
+      return parseUnits(amount, 18);
+    } catch {
+      return null;
     }
-    if (!address) {
-      setMessage("Connect the stub wallet first — no live transactions yet.");
-      return;
-    }
-    const parsed = Number(amount);
-    const slip = Number(slippage);
-    if (!Number.isFinite(parsed) || parsed <= 0) {
-      setMessage("Enter an amount greater than zero.");
-      return;
-    }
-    if (!Number.isFinite(slip) || slip < 0 || slip > 50) {
-      setMessage("Slippage should be between 0 and 50%.");
-      return;
-    }
-    setMessage(
-      `Stub ${side}: ${parsed} ${side === "buy" ? "USDC" : pop.symbol} with ${slip}% slippage. ArcBondingCurve is not wired.`,
-    );
-  }
+  }, [amount]);
+
+  const quoteFn = side === "buy" ? "quoteBuy" : "quoteSell";
+  const { data: quote, error: quoteError } = useReadContract({
+    address: curveAddress,
+    abi: bondingCurveAbi,
+    functionName: quoteFn,
+    args: parsedNative18 !== null ? [parsedNative18] : undefined,
+    query: { enabled: Boolean(curveAddress) && parsedNative18 !== null && !graduated },
+  });
+
+  const quoteLabel = useMemo(() => {
+    if (!curveAddress || quote === undefined) return null;
+    if (side === "buy") return `${formatUnits(quote, 18)} ${pop.symbol}`;
+    return `${formatUnits(quote, 18)} USDC`;
+  }, [curveAddress, pop.symbol, quote, side]);
 
   return (
     <div className="rounded-[22px] border border-border bg-card p-5 shadow-[var(--shadow)] sm:p-6">
@@ -49,10 +57,7 @@ export function TradePanel({ pop }: { pop: Pop }) {
           <button
             key={item}
             type="button"
-            onClick={() => {
-              setSide(item);
-              setMessage(null);
-            }}
+            onClick={() => setSide(item)}
             className={cn(
               "rounded-full py-2.5 font-display text-sm font-extrabold capitalize transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple",
               side === item
@@ -119,32 +124,36 @@ export function TradePanel({ pop }: { pop: Pop }) {
         </div>
       </div>
 
-      <p className="mt-3 text-xs leading-relaxed text-muted">
-        Quotes would come from the constant-product curve (virtual + real native18
-        reserves). This panel is UI-only.
-      </p>
+      {curveAddress && quoteLabel ? (
+        <p className="mt-3 text-sm text-muted">
+          Quote {quoteLabel}
+          <span className="block text-xs">Read from the curve. Writes come next.</span>
+        </p>
+      ) : (
+        <p className="mt-3 text-xs leading-relaxed text-muted">
+          {curveAddress
+            ? "Quotes read from the constant-product curve (native18). Buy/sell writes ship next."
+            : "Catalog pop — no on-chain curve. Buy/sell writes ship after launch wiring."}
+        </p>
+      )}
+
+      {quoteError ? (
+        <p className="mt-2 text-sm text-orange">Could not quote this curve.</p>
+      ) : null}
 
       <div className="mt-5">
-        {address || graduated ? (
-          <Button
-            type="button"
-            onClick={submit}
-            variant={side === "sell" ? "danger" : "primary"}
-            className="w-full"
-            disabled={graduated}
-          >
-            {graduated ? "Graduated" : side === "buy" ? `Buy ${pop.symbol}` : `Sell ${pop.symbol}`}
+        {graduated ? (
+          <Button type="button" className="w-full" disabled>
+            Graduated
           </Button>
+        ) : !isConnected || !address ? (
+          <ConnectWallet size="md" />
         ) : (
-          <Button type="button" onClick={connect} className="w-full" disabled={connecting}>
-            {connecting ? "Connecting…" : "Connect Wallet"}
+          <Button type="button" variant={side === "sell" ? "danger" : "primary"} className="w-full" disabled>
+            {side === "buy" ? `Buy ${pop.symbol}` : `Sell ${pop.symbol}`} · next
           </Button>
         )}
       </div>
-
-      {message ? (
-        <p className="mt-4 rounded-[18px] bg-background px-3 py-2.5 text-sm text-muted">{message}</p>
-      ) : null}
     </div>
   );
 }

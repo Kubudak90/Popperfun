@@ -20,9 +20,11 @@ v1 does not invent Uniswap V4 pool, hook, or manager addresses. The venue is a m
 
 ## Web
 
-The UI is the Phase 1 deliverable. Pages talk to mock pop data. The launch form is the only place that already calls `@popper/sdk` so unit conversion is visible before a wallet is wired.
+The UI talks to mock catalog pops and, when configured, to a live factory.
 
-Wallet connect is a local stub (`0xPop9eR…`). Submit / buy / sell show explicit stub copy instead of sending transactions.
+Wallet connect uses wagmi v2 (injected + optional WalletConnect). `/launch` sends `ArcLaunchFactory.launch(name, symbol, usd6)` when `NEXT_PUBLIC_FACTORY_ADDRESS` is a non-zero address. Zero / missing factory keeps the form fillable and never fakes a successful launch.
+
+Buy/sell writes are not wired yet. On-chain `/pop/0x…` pages read curve reserves and quotes.
 
 ## Contracts (prototype)
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { isAddress } from "viem";
 import { Badge } from "@/components/badge";
 import { Button } from "@/components/button";
 import { CurveBar } from "@/components/curve-bar";
@@ -8,9 +9,12 @@ import { ArrowIcon } from "@/components/icons";
 import { PopperMark } from "@/components/logo";
 import { ACCENT_GRADIENT, curveProgress, getPop, POPS } from "@/lib/pops";
 import { cn } from "@/lib/cn";
+import { OnchainPop } from "./onchain-pop";
 import { TradePanel } from "./trade-panel";
 
 type Props = { params: Promise<{ id: string }> };
+
+export const dynamicParams = true;
 
 export function generateStaticParams() {
   return POPS.map((pop) => ({ id: pop.id }));
@@ -19,13 +23,17 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const pop = getPop(id);
-  if (!pop) return { title: "Pop not found" };
-  return { title: `${pop.name} ($${pop.symbol})` };
+  if (pop) return { title: `${pop.name} ($${pop.symbol})` };
+  if (isAddress(id)) return { title: "On-chain pop" };
+  return { title: "Pop not found" };
 }
 
 export default async function PopPage({ params }: Props) {
   const { id } = await params;
   const pop = getPop(id);
+  if (!pop && isAddress(id)) {
+    return <OnchainPop curve={id} />;
+  }
   if (!pop) notFound();
 
   const progress = curveProgress(pop);
