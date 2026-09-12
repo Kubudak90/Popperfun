@@ -7,7 +7,7 @@ type Size = "md" | "lg" | "sm";
 
 const variants: Record<Variant, string> = {
   primary:
-    "cta-gradient-shift text-white shadow-[0_10px_28px_rgba(111,59,255,0.32)] hover:brightness-110",
+    "cta-gradient text-white shadow-[0_10px_28px_rgba(111,59,255,0.32)] hover:brightness-110",
   secondary:
     "border-2 border-midnight bg-transparent text-midnight hover:bg-midnight hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-midnight",
   ghost:

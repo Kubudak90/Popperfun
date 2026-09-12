@@ -34,9 +34,9 @@ export default function HomePage() {
   return (
     <div>
       <section className="relative overflow-hidden">
-        <div className="orb -left-16 -top-10 h-64 w-64 bg-[#6F3BFF]/25 dark:bg-[#6F3BFF]/20" />
-        <div className="orb -right-10 top-24 h-72 w-72 bg-[#D94CFF]/20 dark:bg-[#D94CFF]/15" />
-        <div className="orb bottom-0 left-1/3 h-56 w-56 bg-[#1E8BFF]/20 dark:bg-[#1E8BFF]/15" />
+        <div className="orb -left-16 -top-10 h-64 w-64 bg-[#6F3BFF]/16 dark:bg-[#6F3BFF]/18" />
+        <div className="orb -right-10 top-24 h-72 w-72 bg-[#D94CFF]/12 dark:bg-[#D94CFF]/14" />
+        <div className="orb bottom-0 left-1/3 h-56 w-56 bg-[#1E8BFF]/12 dark:bg-[#1E8BFF]/14" />
 
         <div className="relative mx-auto flex max-w-6xl flex-col items-center px-4 pb-16 pt-14 text-center sm:px-6 sm:pt-20">
           <div className="animate-pop">
@@ -47,12 +47,12 @@ export default function HomePage() {
             className="animate-pop mt-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-bold text-muted"
             style={{ animationDelay: "80ms" }}
           >
-            <PopperMark size={16} />
+            <PopperMark size={16} gradientId="popperBubbleBadge" />
             Arc-native · quoted in USDC
           </div>
 
           <h1
-            className="animate-pop mt-6 max-w-3xl font-display text-5xl font-extrabold leading-[0.95] tracking-tight sm:text-7xl"
+            className="animate-pop mt-6 max-w-3xl font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-foreground sm:text-7xl"
             style={{ animationDelay: "120ms" }}
           >
             Ideas <span className="bg-gradient-to-r from-purple to-blue bg-clip-text text-transparent">pop</span> here.
