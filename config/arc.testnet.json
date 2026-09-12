@@ -1,0 +1,24 @@
+{
+  "name": "Arc Testnet",
+  "chainId": 0,
+  "rpcUrl": "",
+  "nativeCurrency": {
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "decimals": 18,
+    "note": "Arc native gas token is USDC. Curve accounting is native18. Human config is usd6."
+  },
+  "quoteAsset": "NATIVE_USDC",
+  "curveFamily": "CONSTANT_PRODUCT",
+  "contracts": {
+    "factory": "0x0000000000000000000000000000000000000000",
+    "graduationVenue": "0x0000000000000000000000000000000000000000",
+    "note": "Placeholder zeros only. Do not invent Uniswap V4 pool or hook addresses."
+  },
+  "v1Constraints": [
+    "One quote asset: native USDC",
+    "One curve family: constant-product",
+    "Immutable launch economics",
+    "Mock graduation venue until real Uniswap V4 addresses exist"
+  ]
+}

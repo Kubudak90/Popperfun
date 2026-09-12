@@ -1,0 +1,32 @@
+node_modules
+.pnp
+.pnp.*
+.DS_Store
+*.pem
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+.env
+.env.*
+!.env.example
+
+# Next.js
+apps/web/.next
+apps/web/out
+apps/web/next-env.d.ts
+*.tsbuildinfo
+
+# Foundry
+packages/contracts/cache
+packages/contracts/out
+packages/contracts/lib
+packages/contracts/broadcast
+
+# Misc
+coverage
+.vercel
+dist
+.turbo

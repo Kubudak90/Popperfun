@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-midnight: #101426;
+  --color-purple: #6f3bff;
+  --color-pink: #d94cff;
+  --color-orange: #ff8a4c;
+  --color-blue: #1e8bff;
+  --color-cloud: #f6f7fb;
+  --color-live: #22c55e;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-nunito), var(--font-inter), ui-sans-serif, sans-serif;
+}
+
+:root {
+  --background: #f6f7fb;
+  --foreground: #101426;
+  --card: #ffffff;
+  --muted: #5a6078;
+  --border: #e3e6f0;
+  --nav: rgba(246, 247, 251, 0.82);
+  --shadow: 0 18px 50px rgba(16, 20, 38, 0.08);
+}
+
+.dark {
+  --background: #101426;
+  --foreground: #f6f7fb;
+  --card: #181c32;
+  --muted: #9aa1b8;
+  --border: #2a2f4a;
+  --nav: rgba(16, 20, 38, 0.78);
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: #6f3bff;
+  color: #ffffff;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes float-droplet {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(6deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.animate-pop {
+  animation: pop-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-float {
+  animation: float-droplet 5s ease-in-out infinite;
+}
+
+.cta-gradient {
+  background-image: linear-gradient(90deg, #6f3bff, #1e8bff);
+}
+
+.cta-gradient-shift {
+  background-image: linear-gradient(90deg, #6f3bff, #1e8bff, #6f3bff);
+  background-size: 200% 100%;
+}
+
+.cta-gradient-shift:hover {
+  animation: shimmer 1.4s linear infinite;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(48px);
+  pointer-events: none;
+}
