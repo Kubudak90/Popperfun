@@ -84,24 +84,26 @@ export function TradePanel({ pop }: { pop: Pop }) {
           <span className="font-display text-sm font-extrabold">Slippage</span>
           <span className="text-xs text-muted">{slippage}%</span>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {SLIPPAGE.map((value) => (
-            <button
-              key={value}
-              type="button"
-              disabled={graduated}
-              onClick={() => setSlippage(value)}
-              className={cn(
-                "h-9 rounded-full px-3.5 font-display text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple disabled:opacity-50",
-                slippage === value
-                  ? "bg-purple/12 text-purple"
-                  : "border border-border bg-background text-muted hover:text-foreground",
-              )}
-            >
-              {value}%
-            </button>
-          ))}
-          <label className="relative min-w-[5.5rem] flex-1">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <div className="flex flex-wrap gap-2">
+            {SLIPPAGE.map((value) => (
+              <button
+                key={value}
+                type="button"
+                disabled={graduated}
+                onClick={() => setSlippage(value)}
+                className={cn(
+                  "h-9 rounded-full px-3.5 font-display text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple disabled:opacity-50",
+                  slippage === value
+                    ? "bg-purple/12 text-purple"
+                    : "border border-border bg-background text-muted hover:text-foreground",
+                )}
+              >
+                {value}%
+              </button>
+            ))}
+          </div>
+          <label className="relative w-full sm:w-24">
             <Input
               value={slippage}
               onChange={(event) => setSlippage(event.target.value)}

@@ -30,7 +30,7 @@ export function Footer() {
         </div>
 
         <div className="lg:text-right">
-          <Logo size={32} wordmarkClassName="text-cloud" />
+          <Logo size={32} inverted />
           <p className="mt-4 text-sm text-cloud/50">
             Launch, collect, and be part of what&apos;s next.
           </p>
