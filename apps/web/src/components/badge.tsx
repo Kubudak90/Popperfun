@@ -1,10 +1,11 @@
+import { FlameIcon, StarIcon } from "@/components/icons";
 import { cn } from "@/lib/cn";
 import type { PopBadge } from "@/lib/pops";
 
 const styles: Record<PopBadge, string> = {
-  LIVE: "bg-[#22C55E]/12 text-[#22C55E] ring-[#22C55E]/25",
-  NEW: "bg-[#6F3BFF]/12 text-[#6F3BFF] ring-[#6F3BFF]/25",
-  HOT: "bg-[#FF8A4C]/12 text-[#FF8A4C] ring-[#FF8A4C]/30",
+  LIVE: "bg-[#22C55E]/14 text-[#22C55E]",
+  NEW: "bg-purple/12 text-purple",
+  HOT: "bg-orange/16 text-orange",
 };
 
 export function Badge({
@@ -17,7 +18,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 font-display text-[11px] font-extrabold tracking-wider ring-1",
+        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-display text-[11px] font-extrabold tracking-wider",
         styles[kind],
         className,
       )}
@@ -28,6 +29,8 @@ export function Badge({
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#22C55E]" />
         </span>
       ) : null}
+      {kind === "NEW" ? <StarIcon /> : null}
+      {kind === "HOT" ? <FlameIcon /> : null}
       {kind}
     </span>
   );

@@ -10,7 +10,9 @@ import {
 } from "@popper/sdk";
 import { useMemo, useState, type FormEvent } from "react";
 import { Button } from "@/components/button";
+import { ArrowIcon } from "@/components/icons";
 import { Field, Input, Textarea } from "@/components/input";
+import { PopperMark } from "@/components/logo";
 
 type FormState = {
   name: string;
@@ -155,7 +157,7 @@ export function LaunchForm() {
             </div>
           </dl>
         ) : (
-          <p className="mt-3 text-sm text-[#e06a2c]">{units.error}</p>
+          <p className="mt-3 text-sm text-orange">{units.error}</p>
         )}
       </div>
 
@@ -164,7 +166,9 @@ export function LaunchForm() {
       </div>
 
       <Button type="submit" size="lg" className="w-full sm:w-auto">
+        <PopperMark size={18} className="text-white dark:text-white" />
         Launch Token
+        <ArrowIcon />
       </Button>
 
       {submitted ? (

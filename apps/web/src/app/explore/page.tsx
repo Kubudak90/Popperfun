@@ -16,8 +16,7 @@ export default function ExplorePage() {
         What&apos;s popping
       </h1>
       <p className="mt-3 max-w-2xl text-muted">
-        Fixed-supply tokens on a constant-product curve, quoted in native USDC.
-        Catch them before they graduate.
+        Launch, collect, and be part of what&apos;s next.
       </p>
       <div className="mt-8">
         <ExploreGrid />

@@ -2,7 +2,9 @@
 
 import { useMemo, useState } from "react";
 import { Button } from "@/components/button";
+import { ArrowIcon } from "@/components/icons";
 import { Input } from "@/components/input";
+import { PopperMark } from "@/components/logo";
 import { TokenCard } from "@/components/token-card";
 import { POPS, type PopBadge } from "@/lib/pops";
 
@@ -60,7 +62,11 @@ export function ExploreGrid() {
             launches it.
           </p>
           <div className="mt-6 flex justify-center">
-            <Button href="/launch">Launch Token</Button>
+            <Button href="/launch">
+              <PopperMark size={18} className="text-white dark:text-white" />
+              Launch Token
+              <ArrowIcon />
+            </Button>
           </div>
         </div>
       ) : (

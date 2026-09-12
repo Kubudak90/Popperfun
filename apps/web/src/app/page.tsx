@@ -1,13 +1,30 @@
 import { Button } from "@/components/button";
+import { ArrowIcon } from "@/components/icons";
 import { Logo, PopperMark } from "@/components/logo";
 import { TokenCard } from "@/components/token-card";
 import { POPS } from "@/lib/pops";
 
 const TRAITS = [
-  { label: "Playful", color: "#D94CFF" },
-  { label: "Fast", color: "#1E8BFF" },
-  { label: "Confident", color: "#6F3BFF" },
-  { label: "On-chain", color: "#FF8A4C" },
+  {
+    label: "Playful",
+    kit: "FUN BRINGS PEOPLE TOGETHER",
+    color: "#D94CFF",
+  },
+  {
+    label: "Fast",
+    kit: "IDEAS TO MARKET, FASTER",
+    color: "#1E8BFF",
+  },
+  {
+    label: "Confident",
+    kit: "BUILT FOR A BIGGER TOMORROW",
+    color: "#6F3BFF",
+  },
+  {
+    label: "On-chain",
+    kit: "REAL OWNERSHIP. REAL OPPORTUNITY.",
+    color: "#FF8A4C",
+  },
 ] as const;
 
 const STEPS = [
@@ -24,7 +41,7 @@ const STEPS = [
   {
     n: "03",
     title: "Belong",
-    body: "Hit the threshold and the pop graduates to Uniswap V4. You were there when it popped.",
+    body: "Hit the threshold and the pop graduates. You were there when it popped.",
   },
 ] as const;
 
@@ -34,63 +51,52 @@ export default function HomePage() {
   return (
     <div>
       <section className="relative overflow-hidden">
-        <div className="orb -left-16 -top-10 h-64 w-64 bg-[#6F3BFF]/16 dark:bg-[#6F3BFF]/18" />
-        <div className="orb -right-10 top-24 h-72 w-72 bg-[#D94CFF]/12 dark:bg-[#D94CFF]/14" />
-        <div className="orb bottom-0 left-1/3 h-56 w-56 bg-[#1E8BFF]/12 dark:bg-[#1E8BFF]/14" />
+        <div className="orb -left-20 -top-16 h-72 w-72 bg-purple/20 dark:bg-purple/25" />
+        <div className="orb -right-16 top-20 h-80 w-80 bg-pink/16 dark:bg-pink/18" />
+        <div className="orb bottom-4 left-1/3 h-64 w-64 bg-blue/16 dark:bg-blue/18" />
 
         <div className="relative mx-auto flex max-w-6xl flex-col items-center px-4 pb-16 pt-14 text-center sm:px-6 sm:pt-20">
           <div className="animate-pop">
-            <Logo size={56} wordmarkClassName="text-3xl sm:text-4xl" />
+            <Logo size={58} wordmarkClassName="text-3xl sm:text-4xl" />
           </div>
 
-          <div
-            className="animate-pop mt-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-bold text-muted"
-            style={{ animationDelay: "80ms" }}
-          >
-            <PopperMark size={16} gradientId="popperBubbleBadge" />
-            Arc-native · quoted in USDC
-          </div>
-
-          <h1
-            className="animate-pop mt-6 max-w-3xl font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-foreground sm:text-7xl"
-            style={{ animationDelay: "120ms" }}
-          >
-            Ideas <span className="bg-gradient-to-r from-purple to-blue bg-clip-text text-transparent">pop</span> here.
+          <h1 className="animate-pop mt-8 max-w-3xl font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-midnight dark:text-cloud sm:text-7xl">
+            Ideas pop here.
           </h1>
 
-          <p
-            className="animate-pop mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
-            style={{ animationDelay: "180ms" }}
-          >
-            Launch a fixed-supply token against native USDC, trade the bonding
-            curve, then graduate to Uniswap V4. Launch, collect, and be part of
-            what&apos;s next.
+          <p className="animate-pop mt-5 max-w-lg text-base leading-relaxed text-muted sm:text-lg">
+            Launch, collect, and be part of what&apos;s next.
           </p>
 
-          <div
-            className="animate-pop mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row"
-            style={{ animationDelay: "240ms" }}
-          >
+          <div className="animate-pop mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
             <Button href="/launch" size="lg" className="w-full sm:w-auto">
+              <PopperMark size={20} className="text-white dark:text-white" />
               Launch Token
+              <ArrowIcon />
             </Button>
             <Button href="/explore" variant="secondary" size="lg" className="w-full sm:w-auto">
               Explore Pops
+              <ArrowIcon />
             </Button>
           </div>
 
-          <div className="mt-12 grid w-full grid-cols-2 gap-2 sm:grid-cols-4">
+          <div className="mt-14 grid w-full gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {TRAITS.map((trait) => (
-              <div
+              <article
                 key={trait.label}
-                className="rounded-2xl border border-border bg-card/80 px-3 py-3 font-display text-sm font-extrabold sm:text-base"
+                className="rounded-[24px] border border-border bg-card px-4 py-4 text-left shadow-[var(--shadow)]"
               >
-                <span
-                  className="mr-2 inline-block h-2 w-2 rounded-full"
-                  style={{ background: trait.color }}
-                />
-                {trait.label}
-              </div>
+                <p className="font-display text-lg font-extrabold tracking-tight">
+                  <span
+                    className="mr-2 inline-block h-2 w-2 rounded-full"
+                    style={{ background: trait.color }}
+                  />
+                  {trait.label}
+                </p>
+                <p className="mt-2 font-display text-[11px] font-extrabold uppercase tracking-[0.12em] text-muted">
+                  {trait.kit}
+                </p>
+              </article>
             ))}
           </div>
         </div>
@@ -106,8 +112,9 @@ export default function HomePage() {
               Pops mid-flight
             </h2>
           </div>
-          <Button href="/explore" variant="ghost" size="sm">
+          <Button href="/explore" variant="secondary" size="sm">
             See all
+            <ArrowIcon />
           </Button>
         </div>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

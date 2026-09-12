@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/button";
 import { ConnectWallet } from "@/components/connect-wallet";
-import { Logo } from "@/components/logo";
+import { ArrowIcon } from "@/components/icons";
+import { Logo, PopperMark } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/cn";
 
@@ -19,10 +20,10 @@ export function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-[var(--nav)] backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+    <header className="sticky top-0 z-40 border-b border-border bg-[var(--nav)] backdrop-blur-xl">
+      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         <Link href="/" className="shrink-0" onClick={() => setOpen(false)}>
-          <Logo size={34} />
+          <Logo size={36} />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -48,7 +49,9 @@ export function Nav() {
             <ConnectWallet />
           </div>
           <Button href="/launch" size="sm" className="hidden sm:inline-flex">
+            <PopperMark size={16} className="text-white dark:text-white" />
             Launch Token
+            <ArrowIcon />
           </Button>
           <button
             type="button"
@@ -66,7 +69,7 @@ export function Nav() {
       </div>
 
       {open ? (
-        <div className="border-t border-border px-4 py-3 md:hidden">
+        <div className="border-t border-border px-4 py-4 md:hidden">
           <div className="flex flex-col gap-2">
             {LINKS.map((link) => (
               <Link
@@ -80,7 +83,9 @@ export function Nav() {
             ))}
             <ConnectWallet />
             <Button href="/launch" onClick={() => setOpen(false)}>
+              <PopperMark size={16} className="text-white dark:text-white" />
               Launch Token
+              <ArrowIcon />
             </Button>
           </div>
         </div>

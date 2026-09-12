@@ -7,19 +7,18 @@ type Size = "md" | "lg" | "sm";
 
 const variants: Record<Variant, string> = {
   primary:
-    "cta-gradient text-white shadow-[0_10px_28px_rgba(111,59,255,0.32)] hover:brightness-110",
+    "cta-gradient text-white shadow-[0_12px_28px_rgba(111,59,255,0.28)] hover:brightness-110",
   secondary:
-    "border-2 border-midnight bg-transparent text-midnight hover:bg-midnight hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-midnight",
+    "border border-midnight/12 bg-white text-midnight hover:border-midnight/22 dark:border-cloud/15 dark:bg-cloud/6 dark:text-cloud dark:hover:bg-cloud/10",
   ghost:
-    "border border-border bg-card text-foreground hover:border-purple/40 hover:text-purple",
-  danger:
-    "bg-[#FF8A4C] text-white hover:brightness-110",
+    "border border-midnight/8 bg-white/70 text-midnight hover:border-purple/30 hover:text-purple dark:border-cloud/10 dark:bg-cloud/5 dark:text-cloud",
+  danger: "bg-orange text-white hover:brightness-110",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-9 px-4 text-sm",
-  md: "h-11 px-5 text-[15px]",
-  lg: "h-12 px-7 text-base",
+  sm: "h-10 px-4 text-sm",
+  md: "h-12 px-6 text-[15px]",
+  lg: "h-14 px-8 text-[17px]",
 };
 
 type Common = {

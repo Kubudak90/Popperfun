@@ -1,4 +1,6 @@
 import { Button } from "@/components/button";
+import { ArrowIcon } from "@/components/icons";
+import { PopperMark } from "@/components/logo";
 
 export default function NotFound() {
   return (
@@ -15,8 +17,13 @@ export default function NotFound() {
       <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <Button href="/explore" variant="secondary">
           Explore Pops
+          <ArrowIcon />
         </Button>
-        <Button href="/launch">Launch Token</Button>
+        <Button href="/launch">
+          <PopperMark size={18} className="text-white dark:text-white" />
+          Launch Token
+          <ArrowIcon />
+        </Button>
       </div>
     </div>
   );

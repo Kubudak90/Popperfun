@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Nunito } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
 import { Providers } from "@/components/providers";
@@ -10,10 +10,10 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const nunito = Nunito({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["600", "700", "800", "900"],
-  variable: "--font-nunito",
+  weight: ["600", "700", "800"],
+  variable: "--font-jakarta",
 });
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s · Popper.fun",
   },
   description:
-    "A playful Arc-native USDC token launchpad. Launch a fixed-supply token, trade the bonding curve, graduate to Uniswap V4.",
+    "Launch, collect, and be part of what's next. A playful Arc-native USDC token launchpad.",
 };
 
 export default function RootLayout({
@@ -39,7 +39,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${nunito.variable} min-h-screen antialiased`}>
+      <body className={`${inter.variable} ${jakarta.variable} min-h-screen antialiased`}>
         <Providers>
           <Nav />
           <main>{children}</main>

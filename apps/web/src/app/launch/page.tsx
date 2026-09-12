@@ -17,8 +17,8 @@ export default function LaunchPage() {
           Launch a pop
         </h1>
         <p className="mt-3 max-w-xl text-muted">
-          Fixed supply. Native USDC quote. Immutable graduation line. v1 speaks
-          one curve family — constant product — and nothing else.
+          Launch, collect, and be part of what&apos;s next. Fixed supply, native
+          USDC, immutable graduation — one curve family.
         </p>
         <div className="mt-8 rounded-[32px] border border-border bg-card p-5 shadow-[var(--shadow)] sm:p-8">
           <LaunchForm />
@@ -38,8 +38,8 @@ export default function LaunchPage() {
         <div className="rounded-[28px] bg-midnight p-6 text-cloud">
           <p className="font-display text-2xl font-extrabold">Ideas pop here.</p>
           <p className="mt-2 text-sm leading-relaxed text-cloud/70">
-            You&apos;re not deploying a Uniswap V4 pool yet. Graduation hits a
-            mock venue until real V4 addresses exist. No invented hooks.
+            A more playful on-chain future. Graduation hits a mock venue until
+            real V4 addresses exist.
           </p>
         </div>
       </aside>

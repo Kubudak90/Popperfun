@@ -31,7 +31,7 @@ export function Field({
       <span className="font-display text-sm font-extrabold">{label}</span>
       {children}
       {error ? (
-        <span className="block text-sm text-[#e06a2c]">{error}</span>
+        <span className="block text-sm text-orange">{error}</span>
       ) : hint ? (
         <span className="block text-sm text-muted">{hint}</span>
       ) : null}

@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { Badge } from "@/components/badge";
 import { Button } from "@/components/button";
 import { CurveBar } from "@/components/curve-bar";
+import { ArrowIcon } from "@/components/icons";
+import { PopperMark } from "@/components/logo";
 import { ACCENT_GRADIENT, curveProgress, getPop, POPS } from "@/lib/pops";
 import { cn } from "@/lib/cn";
 import { TradePanel } from "./trade-panel";
@@ -101,11 +103,14 @@ export default async function PopPage({ params }: Props) {
         <div>
           <TradePanel pop={pop} />
           <div className="mt-4 flex flex-wrap gap-2">
-            <Button href="/launch" variant="ghost" size="sm">
-              Launch your own
+            <Button href="/launch" size="sm">
+              <PopperMark size={16} className="text-white dark:text-white" />
+              Launch Token
+              <ArrowIcon />
             </Button>
-            <Button href="/explore" variant="ghost" size="sm">
+            <Button href="/explore" variant="secondary" size="sm">
               Explore Pops
+              <ArrowIcon />
             </Button>
           </div>
         </div>
