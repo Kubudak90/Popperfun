@@ -165,6 +165,8 @@ pnpm dlx vercel deploy --prod --yes
 
 If you import the monorepo in the dashboard, set **Root Directory** to `apps/web` and add the same four `NEXT_PUBLIC_*` values. Do not add contract private keys.
 
+Anonymous CLI deploys expire unless you claim them. After claiming, keep those env vars on the Vercel project (Production + Preview + Development). They are public RPC/factory values only.
+
 ## Pages
 
 | Route | What you get |
