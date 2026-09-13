@@ -7,7 +7,7 @@ apps/web        Next.js 15 App Router — landing, explore, launch, token
 apps/indexer    Stub worker (no RPC yet)
 packages/sdk    Labeled usd6 / native18 helpers
 packages/contracts  Foundry prototype (disposable)
-config          Official Arc Testnet (5042002). Factory env-configured; V4 left null.
+config          Official Arc Testnet (5042002). Live prototype factory; V4 left null.
 ```
 
 ## Product flow

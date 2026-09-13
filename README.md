@@ -17,7 +17,7 @@ config             official Arc Testnet params (V4 left null)
 docs               architecture + unit rule
 ```
 
-The UI runs without a wallet. Connect and `/launch` become on-chain when a factory address and RPC are set. Zero addresses mean not wired — the app will not fake a successful launch. Buy/sell writes are not shipped yet.
+Connect on Arc Testnet and `/launch` sends `ArcLaunchFactory.launch` to the live prototype factory. Buy/sell writes are not shipped yet.
 
 ## Brand
 
@@ -76,7 +76,7 @@ forge install foundry-rs/forge-std --no-commit
 forge test -vv
 ```
 
-Copy [apps/web/.env.example](apps/web/.env.example) to `apps/web/.env.local`. Defaults are **Arc Testnet**. The UI runs with a zero factory until you deploy.
+Copy [apps/web/.env.example](apps/web/.env.example) to `apps/web/.env.local` if you need overrides. Defaults are **Arc Testnet** and the live prototype factory.
 
 ## Arc Testnet
 
@@ -92,6 +92,8 @@ Official params from [docs.arc.io](https://docs.arc.io/arc/references/rpc-endpoi
 | Native gas | USDC, **18 decimals** (`msg.value` / native18) |
 | ERC-20 USDC interface | `0x3600000000000000000000000000000000000000` (6 decimals) — **not** a second launch quote route |
 | Faucet | https://faucet.circle.com |
+| Factory (live prototype) | [`0x3C63B1dD4224956F6D40dF57c9ceeCF7efC1d95e`](https://testnet.arcscan.app/address/0x3C63B1dD4224956F6D40dF57c9ceeCF7efC1d95e) |
+| Venue | [`0xbd74765B48a525C41f62f9E26eBc5Fb628D5F18a`](https://testnet.arcscan.app/address/0xbd74765B48a525C41f62f9E26eBc5Fb628D5F18a) (`MockGraduationVenue`) |
 | Uniswap V4 | UNVERIFIED / null |
 
 ### 1. Add the network to your wallet
@@ -114,16 +116,9 @@ pnpm deploy:arc-testnet
 # or: make deploy-arc-testnet
 ```
 
-The script prints `factory` and `venue`. Paste factory into `apps/web/.env.local`:
+The UI already points at the live factory. Redeploy only if you want your own instance, then override `NEXT_PUBLIC_FACTORY_ADDRESS`.
 
-```
-NEXT_PUBLIC_RPC_URL=https://rpc.testnet.arc.io
-NEXT_PUBLIC_CHAIN_ID=5042002
-NEXT_PUBLIC_FACTORY_ADDRESS=0x<factory from the deploy log>
-NEXT_PUBLIC_EXPLORER_TX_URL=https://testnet.arcscan.app/tx/{hash}
-```
-
-Without `PRIVATE_KEY` the script only checks RPC (`cast chain-id` / `cast block-number`) and dry-runs. It will not broadcast. There is no factory on Arc in this repo until you deploy.
+Without `PRIVATE_KEY` the script only checks RPC (`cast chain-id` / `cast block-number`) and dry-runs. It will not broadcast.
 
 ### 4. Launch from the UI
 
@@ -131,9 +126,9 @@ Without `PRIVATE_KEY` the script only checks RPC (`cast chain-id` / `cast block-
 pnpm --filter web dev
 ```
 
-Open [http://127.0.0.1:43127/launch](http://127.0.0.1:43127/launch), connect on Arc Testnet, submit. `ArcLaunchFactory.launch` takes **usd6 atoms** (`69000` → `69000000000`). Success shows curve + token + an [ArcScan](https://testnet.arcscan.app) tx link and `/pop/0x<curve>`.
+Open [http://127.0.0.1:43127/launch](http://127.0.0.1:43127/launch), connect on Arc Testnet (add the chain if needed), submit. `ArcLaunchFactory.launch` takes **usd6 atoms** (`69000` → `69000000000`) against [`0x3C63B1dD4224956F6D40dF57c9ceeCF7efC1d95e`](https://testnet.arcscan.app/address/0x3C63B1dD4224956F6D40dF57c9ceeCF7efC1d95e). Success shows curve + token + an [ArcScan](https://testnet.arcscan.app) tx link and `/pop/0x<curve>`.
 
-If the factory is zero, the form stays fillable and explains this deploy path. It never fakes an on-chain success.
+If you point env at a zero factory, the form stays fillable and explains the deploy path. It never fakes an on-chain success.
 
 ## Local Anvil (optional)
 

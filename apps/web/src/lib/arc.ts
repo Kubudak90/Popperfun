@@ -13,6 +13,14 @@ export const ARC_TESTNET_RPC_WS = "wss://rpc.testnet.arc.io";
 export const ARC_TESTNET_EXPLORER = "https://testnet.arcscan.app";
 export const ARC_TESTNET_FAUCET = "https://faucet.circle.com";
 
+/** Live prototype factory on Arc Testnet. Same launch(name, symbol, usd6) ABI. */
+export const ARC_TESTNET_FACTORY =
+  "0x3C63B1dD4224956F6D40dF57c9ceeCF7efC1d95e" as const;
+
+/** MockGraduationVenue — Uniswap V4 on Arc is still UNVERIFIED. */
+export const ARC_TESTNET_VENUE =
+  "0xbd74765B48a525C41f62f9E26eBc5Fb628D5F18a" as const;
+
 /** Official EIP-3085 payload — exact docs.arc.io values. */
 export const ARC_EIP3085 = {
   chainId: ARC_TESTNET_CHAIN_ID_HEX,

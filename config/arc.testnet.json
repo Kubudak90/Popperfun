@@ -28,11 +28,11 @@
     }
   },
   "contracts": {
-    "factory": "0x0000000000000000000000000000000000000000",
-    "graduationVenue": "0x0000000000000000000000000000000000000000",
+    "factory": "0x3C63B1dD4224956F6D40dF57c9ceeCF7efC1d95e",
+    "graduationVenue": "0xbd74765B48a525C41f62f9E26eBc5Fb628D5F18a",
     "uniswapV4": null,
     "uniswapV4Status": "UNVERIFIED",
-    "note": "Factory is env-configured after you deploy. Do not invent Uniswap V4 pool, hook, or manager addresses. Prototype graduation uses MockGraduationVenue."
+    "note": "Live prototype on Arc Testnet. Graduation venue is MockGraduationVenue. Do not invent Uniswap V4 pool, hook, or manager addresses."
   },
   "v1Constraints": [
     "One quote asset: native USDC (18-decimal msg.value)",

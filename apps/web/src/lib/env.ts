@@ -2,6 +2,7 @@ import { isAddress, zeroAddress, type Address } from "viem";
 import {
   ARC_TESTNET_CHAIN_ID,
   ARC_TESTNET_EXPLORER,
+  ARC_TESTNET_FACTORY,
   ARC_TESTNET_RPC_HTTP,
   addressExplorerUrlFor,
   txExplorerUrlFor,
@@ -18,7 +19,8 @@ function readChainId() {
 
 function readFactory(): Address {
   const fromEnv = process.env.NEXT_PUBLIC_FACTORY_ADDRESS?.trim();
-  if (fromEnv && isAddress(fromEnv)) return fromEnv;
+  if (fromEnv && isAddress(fromEnv) && fromEnv !== ZERO) return fromEnv;
+  if (readChainId() === ARC_TESTNET_CHAIN_ID) return ARC_TESTNET_FACTORY;
   return ZERO;
 }
 
