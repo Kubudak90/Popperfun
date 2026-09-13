@@ -144,16 +144,26 @@ Import an Anvil account from the Anvil banner (local only). Same `launch(name, s
 
 ## Deploy on Vercel
 
-`vercel.json` at the repo root builds the web app (`pnpm --filter web build`).
+Root Directory is `apps/web` (`vercel.json`). Next.js is detected there; `@popper/sdk` stays a workspace package. Public Arc Testnet env is baked into `vercel.json` (no private keys):
 
-Anonymous CLI deploy (claimable, then yours):
+| Variable | Value |
+| --- | --- |
+| `NEXT_PUBLIC_CHAIN_ID` | `5042002` |
+| `NEXT_PUBLIC_RPC_URL` | `https://rpc.testnet.arc.io` |
+| `NEXT_PUBLIC_FACTORY_ADDRESS` | `0x3C63B1dD4224956F6D40dF57c9ceeCF7efC1d95e` |
+| `NEXT_PUBLIC_EXPLORER_TX_URL` | `https://testnet.arcscan.app/tx` |
+
+After `vercel login`, or from a claimed temporary deploy:
 
 ```bash
-# from a standalone web+sdk slice, or after `vercel login`
+pnpm dlx vercel env add NEXT_PUBLIC_CHAIN_ID production,preview,development --value 5042002 --yes
+pnpm dlx vercel env add NEXT_PUBLIC_RPC_URL production,preview,development --value https://rpc.testnet.arc.io --yes
+pnpm dlx vercel env add NEXT_PUBLIC_FACTORY_ADDRESS production,preview,development --value 0x3C63B1dD4224956F6D40dF57c9ceeCF7efC1d95e --yes
+pnpm dlx vercel env add NEXT_PUBLIC_EXPLORER_TX_URL production,preview,development --value https://testnet.arcscan.app/tx --yes
 pnpm dlx vercel deploy --prod --yes
 ```
 
-If you import this monorepo into the Vercel dashboard, set **Root Directory** to `apps/web` so Next.js is detected. `@popper/sdk` stays a workspace package.
+If you import the monorepo in the dashboard, set **Root Directory** to `apps/web` and add the same four `NEXT_PUBLIC_*` values. Do not add contract private keys.
 
 ## Pages
 
