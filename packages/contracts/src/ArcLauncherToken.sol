@@ -2,15 +2,16 @@
 pragma solidity ^0.8.26;
 
 /// @title ArcLauncherToken
-/// @notice Fixed-supply ERC-20 minted once to the bonding curve at launch.
-/// @dev Disposable prototype. 18-decimal token; quote asset is native USDC (native18).
+/// @notice Fixed-supply ERC-20 minted once to its Popper bonding curve.
 contract ArcLauncherToken {
     string public name;
     string public symbol;
+    string public metadataURI;
     uint8 public constant decimals = 18;
 
     uint256 public immutable totalSupply;
     address public immutable curve;
+    address public immutable creator;
 
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
@@ -18,12 +19,23 @@ contract ArcLauncherToken {
     event Transfer(address indexed from, address indexed to, uint256 amount);
     event Approval(address indexed owner, address indexed spender, uint256 amount);
 
-    constructor(string memory name_, string memory symbol_, uint256 supply_, address curve_) {
+    constructor(
+        string memory name_,
+        string memory symbol_,
+        string memory metadataURI_,
+        uint256 supply_,
+        address curve_,
+        address creator_
+    ) {
         require(curve_ != address(0), "token: curve");
+        require(creator_ != address(0), "token: creator");
+        require(bytes(metadataURI_).length <= 2048, "token: metadata");
         name = name_;
         symbol = symbol_;
+        metadataURI = metadataURI_;
         totalSupply = supply_;
         curve = curve_;
+        creator = creator_;
         balanceOf[curve_] = supply_;
         emit Transfer(address(0), curve_, supply_);
     }
